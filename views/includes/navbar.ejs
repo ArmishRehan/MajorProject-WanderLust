@@ -1,48 +1,147 @@
 <style>
-  .btn-search{
-    background-color: #fe434d;
-    color: #fff;
-    padding: 0 1rem 0 1rem;
-    border-radius: 25px;
-  }
-  .btn-search:hover{
-     background-color: #fd353f;
-    color: #fff;
-  }
-  .search-input{
-      border-radius: 2rem;
-      font-size: 0.8rem;
-  }
+    .search-input {
+        border-radius: 2rem;
+        font-size: 0.8rem;
+    }
+
+    /* Logo styling */
+    .navbar-brand img {
+        height: 150px;
+        width: auto;
+        object-fit: contain;
+        transform: scale(1.2) !important;
+        margin-top: 15px;
+    }
+
+    /* Navbar background */
+    .navbar {
+        background-color: #232323;
+        /* dark theme */
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        /* subtle shadow */
+    }
+
+    /* General nav link style */
+    .nav-link {
+        color: #ffffff !important;
+        font-weight: 500;
+    }
+
+    .nav-link:hover {
+        color: #f15f1b !important;
+        /* orange hover */
+    }
+
+    /* Extra spacing ONLY for left nav (Explore) */
+    .navbar-nav.start .nav-link {
+        margin-left: 1rem;
+        margin-right: 3rem;
+    }
+
+    /* Right-side links more compact */
+    .navbar-nav.end .nav-link {
+        margin-left: 0.8rem;
+        margin-right: 0.8rem;
+    }
+
+    /* Styles for the filter buttons in the search bar */
+    .filter-btn {
+        background-color: transparent;
+        border: none;
+        color: #ffffff;
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+        font-weight: 500;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        border-radius: 0.5rem;
+    }
+
+    .filter-btn:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .filter-btn.active {
+        background-color: #f15f1b;
+        color: #fff;
+    }
 </style>
 
-<nav class="navbar navbar-expand-md bg-body-light border-bottom sticky-top">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="/listings"><i class="fa-regular fa-compass"></i></a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <div class="navbar-nav">
-        <a class="nav-link" href="/listings">Explore</a>
-      </div>
+<body>
+    <nav class="navbar navbar-expand-md sticky-top ">
+        <div class="container-fluid">
+            <!-- Logo (click → home) -->
+            <a class="navbar-brand" href="/listings">
+                <img src="/images/Logo.png" alt="Logo">
+            </a>
 
-      <div class="navbar-nav ms-auto">
-        <form class="d-flex" role="search">
-        <input class="form-control me-2 search-input" type="search" placeholder="Search Destinations"/>
-        <button class="btn btn-search" type="submit">Search</button>
-        </form>
-      </div>
+            <!-- Mobile toggle -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-      <div class="navbar-nav ms-auto">
-        <a class="nav-link" href="/listings/new">Add New Listing</a>
-        <% if(!currUser) { %>
-        <a class="nav-link " href="/signup"><b>Signup</b></a>
-        <a class="nav-link" href="/login"><b>Login</b></a>
-        <% } %>
-        <% if(currUser){ %>
-        <a class="nav-link" href="/logout"><b>Logout</b></a>
-        <% } %>
-      </div>
-    </div>
-  </div>
-</nav>
+            <!-- Navbar content -->
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+
+                <!-- Left nav -->
+                <div class="navbar-nav start">
+                    <a class="nav-link" href="/listings">Explore</a>
+                </div>
+
+                <!-- Search bar -->
+                <div class="navbar-nav ms-auto">
+                    <form class="d-flex" role="search" method="GET" action="/listings">
+                        <input class="form-control me-2" type="search" placeholder="Search Listings..." aria-label="Search" name="q" />
+                       
+                        <button class="btn edit-btn" type="submit">Search</button>
+                    </form>
+                </div>
+
+                <!-- Right nav -->
+                <div class="navbar-nav ms-auto end">
+                    <a class="nav-link" href="/listings/new">Add New Listing</a>
+                    <% if(!currUser) { %>
+                        <a class="nav-link" href="/signup"><b>Signup</b></a>
+                        <a class="nav-link" href="/login"><b>Login</b></a>
+                    <% } %>
+                    <% if(currUser){ %>
+                        <a class="nav-link" href="/logout"><b>Logout</b></a>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const searchForm = document.querySelector('.navbar .d-flex');
+
+            filterButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    button.classList.toggle('active');
+                    updateFormFilters();
+                });
+            });
+
+            function updateFormFilters() {
+                const activeFilters = document.querySelectorAll('.filter-btn.active');
+                const existingFilterInputs = searchForm.querySelectorAll('input[name="filters[]"]');
+                
+                // Remove any existing hidden inputs
+                existingFilterInputs.forEach(input => input.remove());
+                
+                // Add new hidden inputs for each active filter
+                activeFilters.forEach(button => {
+                    const hiddenInput = document.createElement('input');
+                    hiddenInput.type = 'hidden';
+                    hiddenInput.name = 'filters[]';
+                    hiddenInput.value = button.dataset.filter;
+                    searchForm.appendChild(hiddenInput);
+                });
+            }
+        });
+    </script>
+</body>

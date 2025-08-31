@@ -35,6 +35,8 @@
 
     <!-- Bootstrap form validation for all forms -->
     <script>
+
+      
     (() => {
       'use strict'
       const forms = document.querySelectorAll('.needs-validation')
@@ -48,6 +50,33 @@
         }, false)
       })
     })()
+
+
+    // Tax toggle logic 
+    const taxSwitch = document.getElementById("switchCheckDefault");
+    const taxInfo = document.getElementsByClassName("tax-info");
+    const prices = document.querySelectorAll(".listing-price");
+
+    taxSwitch.addEventListener("click", () => {
+        for (let i = 0; i < prices.length; i++) {
+            const priceElement = prices[i];
+            const taxInfoElement = taxInfo[i];
+            const originalPrice = parseFloat(priceElement.getAttribute("data-original-price"));
+
+            if (taxSwitch.checked) {
+                // Display tax info and update price
+                taxInfoElement.style.display = "inline";
+                const priceWithTax = originalPrice * 1.18;
+                priceElement.textContent = `PKR ${priceWithTax.toLocaleString("en-PK")} / night`;
+            } else {
+                // Hide tax info and revert price
+                taxInfoElement.style.display = "none";
+                priceElement.textContent = `PKR ${originalPrice.toLocaleString("en-PK")} / night`;
+            }
+        }
+    });
+    
     </script>
+
 </body>
 

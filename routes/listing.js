@@ -18,7 +18,8 @@ router.route("/")
     .get(wrapAsync(ListingController.index))
     .post(isLoggedIn,upload.single("listing[image]"), validatelisting, wrapAsync(ListingController.createListing)
 );
-   
+
+
 
 // new route
 router.get("/new" ,isLoggedIn, ListingController.renderNewForm);

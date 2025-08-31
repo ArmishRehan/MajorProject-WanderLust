@@ -4,7 +4,7 @@
         <div class="col-lg-8">
 
             <!-- Title -->
-            <h3>
+            <h3 class="card-title">
                 <%= listing.title %>
             </h3>
 
@@ -13,10 +13,10 @@
                 <img src="<%= listing.image.url %>" class="card-img-top show-img" alt="Listing_image">
                 <div class="card-body">
                     <p class="card-text">
-                        <i><b>Owned By:</b> <%= listing.owner.username %></i><br>
-                        <b>Description:</b><%= listing.description %><br>
-                             <b>Price:</b>PKR <%= listing.price.toLocaleString("en-PK") %> <i>/night</i><br>
-                                <b>Location:</b><%= listing.location %> &nbsp; <%= listing.country %>
+                        <i><b class="card-bold">Owned By:</b> <%= listing.owner.username %></i><br>
+                        <b class="card-bold">Description:</b><%= listing.description %><br>
+                             <b class="card-bold">Price:</b>PKR <%= listing.price.toLocaleString("en-PK") %> <i>/night</i><br>
+                                <b class="card-bold">Location:</b><%= listing.location %> &nbsp; <%= listing.country %>
                                    
                     </p>
                 </div>
@@ -25,9 +25,9 @@
             <!-- Owner Buttons -->
             <% if (currUser && currUser._id.equals(listing.owner._id)) { %>
                 <div class="d-flex gap-2 mb-4">
-                    <a href="/listings/<%= listing._id %>/edit" class="btn btn-dark">Edit</a>
+                    <a href="/listings/<%= listing._id %>/edit" class="btn edit-btn">Edit</a>
                     <form method="POST" action="/listings/<%= listing._id %>?_method=DELETE">
-                        <button class="btn btn-dark">Delete</button>
+                        <button class="btn edit-btn">Delete</button>
                     </form>
                 </div>
                 <% } %>
@@ -62,7 +62,7 @@
                                         class="form-control" required></textarea>
                                     <div class="invalid-feedback">Please add a review</div>
                                 </div>
-                                <button class="btn btn-outline-dark">Submit</button>
+                                <button class="btn edit-btn">Submit</button>
                             </form>
                         </div>
                         <% } %>
@@ -72,9 +72,9 @@
                                 <div class="mb-4">
                                     <hr />
                                     <h4>Reviews</h4>
-                                    <div class="row">
+                                    <div class=" row">
                                         <% for (let review of listing.reviews) { %>
-                                            <div class="card col-md-5 m-2">
+                                            <div class=" review-card card col-md-5 m-2">
                                                 <div class="card-body">
                                                     <h5 class="card-title">@<%= review.author.username %>
                                                     </h5>
@@ -86,8 +86,8 @@
                                                 </div>
                                                 <form method="POST"
                                                     action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE"
-                                                    class="p-2">
-                                                    <button class="btn btn-sm btn-dark">Delete</button>
+                                                    class=" review-card p-2">
+                                                    <button class="btn btn-sm edit-btn">Delete</button>
                                                 </form>
                                             </div>
                                             <% } %>

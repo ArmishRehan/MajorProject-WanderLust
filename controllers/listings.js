@@ -1,5 +1,3 @@
-const Listing = require("../models/listing");
-
 // Helper: convert address to coordinates
 async function geocodeAddress(address) {
   const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(address)}`;
@@ -16,11 +14,26 @@ async function geocodeAddress(address) {
   return null;
 }
 
-// INDEX
+const Listing = require("../models/listing");
+
+// INDEX 
 module.exports.index = async (req, res) => {
-  const allListings = await Listing.find({});
-  res.render("listings/index", { allListings });
+    
+    const { q } = req.query;
+    let allListings;
+
+    if (q) {
+        // If a query exists, perform a case-insensitive search using $regex
+        const searchQuery = new RegExp(q, 'i');
+        allListings = await Listing.find({ title: { $regex: searchQuery } });
+    } else {
+        // Otherwise, fetch all listings as usual
+        allListings = await Listing.find({});
+    }
+
+    res.render("listings/index", { allListings });
 };
+
 
 // NEW FORM
 module.exports.renderNewForm = (req, res) => {
@@ -122,4 +135,24 @@ module.exports.destroyListing = async (req, res) => {
   await Listing.findByIdAndDelete(id);
   req.flash("success", "Listing Deleted");
   res.redirect("/listings");
+};
+
+// SEARCH
+module.exports.searchListings = async (req, res) => {
+  try {
+    const { q } = req.query; // Get the search query from the URL
+    if (!q) {
+      // If no query is provided, return all listings or an empty array
+      const allListings = await Listing.find({});
+      return res.json(allListings);
+    }
+
+    const searchQuery = new RegExp(q, 'i'); // Create a case-insensitive regex
+    const listings = await Listing.find({ title: { $regex: searchQuery } });
+
+    res.json(listings);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
 };
