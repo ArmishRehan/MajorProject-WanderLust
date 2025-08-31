@@ -20,6 +20,7 @@
         opacity: 1;
         cursor: pointer;
     }
+   
     .filter p{
         font-size: 0.8rem;
     }
@@ -132,8 +133,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const category = filter.dataset.category;
         if (category === currentCategory) {
             filter.style.opacity = '1';
-            filter.style.backgroundColor = '#f15f1b';
-            filter.style.borderRadius = '0.5rem';
+            filter.style.color = '#f15f1b';
             filter.style.padding = '0.5rem';
         }
         
