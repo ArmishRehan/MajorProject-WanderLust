@@ -305,9 +305,38 @@ body {
         justify-content: center;
     }
     
+<<<<<<< HEAD
 }
 
 @media (max-width: 576px) {
+=======
+    #filters {
+        justify-content: center !important;
+        padding: 0 1rem;
+    }
+    
+    .filter {
+        margin: 0.5rem !important;
+        min-width: 80px;
+        text-align: center;
+    }
+}
+
+@media (max-width: 576px) {
+    #filters {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .filter {
+        margin: 0.3rem !important;
+        padding: 0.5rem;
+        border-radius: 0.5rem;
+        background-color: rgba(255, 255, 255, 0.05);
+        min-width: 100px;
+    }
+    
+>>>>>>> 9a3c9a17882b67212c51fcc65b37fac87f7a4b2d
     .tax-toggle {
         margin-top: 1rem;
         width: 90%;
@@ -387,6 +416,7 @@ body {
         font-size: 0.9rem;
     }
 }
+<<<<<<< HEAD
 
 /* Hide dropdown by default */
 .mobile-filters {
@@ -421,3 +451,5 @@ body {
         color: #cebea3;
     }
 }
+=======
+>>>>>>> 9a3c9a17882b67212c51fcc65b37fac87f7a4b2d

@@ -19,19 +19,21 @@ const Listing = require("../models/listing");
 // INDEX 
 module.exports.index = async (req, res) => {
     
-    const { q } = req.query;
+    const { q, category } = req.query;
     let allListings;
+    let filter = {};
 
     if (q) {
-        // If a query exists, perform a case-insensitive search using $regex
-        const searchQuery = new RegExp(q, 'i');
-        allListings = await Listing.find({ title: { $regex: searchQuery } });
-    } else {
-        // Otherwise, fetch all listings as usual
-        allListings = await Listing.find({});
+        filter.title = { $regex: new RegExp(q, 'i') };
     }
+    
+    if (category) {
+        filter.category = category;
+    }
+    
+    allListings = await Listing.find(filter);
 
-    res.render("listings/index", { allListings });
+    res.render("listings/index", { allListings, selectedCategory: category });
 };
 
 
@@ -56,8 +58,8 @@ module.exports.showListing = async (req, res) => {
 // CREATE
 module.exports.createListing = async (req, res) => {
   try {
-    const { title, description, location, country, price } = req.body.listing;
-    const newListing = new Listing({ title, description, location, country, price });
+    const { title, description, location, country, price, category } = req.body.listing;
+    const newListing = new Listing({ title, description, location, country, price, category });
     newListing.owner = req.user._id;
 
     // Image
@@ -95,7 +97,7 @@ module.exports.renderEditForm = async (req, res) => {
 module.exports.updateListing = async (req, res) => {
   try {
     const { id } = req.params;
-    const { title, description, location, country, price } = req.body.listing;
+    const { title, description, location, country, price, category } = req.body.listing;
 
     const listing = await Listing.findById(id);
     if (!listing) {
@@ -109,6 +111,7 @@ module.exports.updateListing = async (req, res) => {
     listing.location = location;
     listing.country = country;
     listing.price = price;
+    listing.category = category;
 
     // Update coordinates
     const coords = await geocodeAddress(`${location}, ${country}`);

@@ -31,6 +31,22 @@
       </div>
 
       <div class="mb-3">
+        <label class="form-label">Category</label>
+        <select name="listing[category]" class="form-control" required>
+          <option value="">Select a category</option>
+          <option value="rooms" <%= listing.category === 'rooms' ? 'selected' : '' %>>Rooms</option>
+          <option value="mountains" <%= listing.category === 'mountains' ? 'selected' : '' %>>Mountains</option>
+          <option value="iconic-cities" <%= listing.category === 'iconic-cities' ? 'selected' : '' %>>Iconic Cities</option>
+          <option value="beaches" <%= listing.category === 'beaches' ? 'selected' : '' %>>Beaches</option>
+          <option value="pools" <%= listing.category === 'pools' ? 'selected' : '' %>>Pools</option>
+          <option value="camping" <%= listing.category === 'camping' ? 'selected' : '' %>>Camping</option>
+          <option value="lakefront" <%= listing.category === 'lakefront' ? 'selected' : '' %>>Lakefront</option>
+          <option value="farms" <%= listing.category === 'farms' ? 'selected' : '' %>>Farms</option>
+          <option value="treehouse" <%= listing.category === 'treehouse' ? 'selected' : '' %>>Tree House</option>
+        </select>
+      </div>
+
+      <div class="mb-3">
         <img src="<%= orignalImageUrl %>" style="width:150px; border-radius:5px;">
       </div>
 

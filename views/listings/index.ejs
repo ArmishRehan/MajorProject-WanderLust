@@ -39,42 +39,43 @@
 </style>
 <div id="filters">
     
-    <div class="filter">
+    <div class="filter" data-category="rooms">
         <div><i class="fa-solid fa-bed"></i></div>
         <p>Rooms</p>
     </div> 
-    <div class="filter">
+    <div class="filter" data-category="mountains">
         <div><i class="fa-solid fa-mountain"></i></div>
         <p>Mountains</p>
     </div> 
-    <div class="filter">
+    <div class="filter" data-category="iconic-cities">
         <div><i class="fa-solid fa-building"></i></div>
         <p>Iconic Cities</p>
     </div> 
-    <div class="filter">
+    <div class="filter" data-category="beaches">
         <div><i class="fa-solid fa-umbrella-beach"></i></div>
         <p>Beaches</p>
     </div> 
-    <div class="filter">
+    <div class="filter" data-category="pools">
         <div><i class="fa-solid fa-person-swimming"></i></div>
-        <p>pools</p>
+        <p>Pools</p>
     </div> 
-    <div class="filter">
+    <div class="filter" data-category="camping">
         <div><i class="fa-solid fa-campground"></i></div>
         <p>Camping</p>
     </div> 
-    <div class="filter">
+    <div class="filter" data-category="lakefront">
         <div><i class="fa-solid fa-water"></i></div>
-        <p>Lake front</p>
+        <p>Lakefront</p>
     </div> 
-    <div class="filter">
+    <div class="filter" data-category="farms">
         <div><i class="fa-solid fa-cow"></i></div>
         <p>Farms</p>
     </div>
-    <div class="filter">
+    <div class="filter" data-category="treehouse">
         <div><i class="fa-solid fa-tree"></i></div>
         <p>Tree House</p>
     </div>
+<<<<<<< HEAD
      <!-- Mobile Filters -->
     <select id="mobile-filters" class="mobile-filters">
         <option value="">Select Category</option>
@@ -90,6 +91,12 @@
     </select>
 
 
+=======
+    <div class="filter" data-category="">
+        <div><i class="fa-solid fa-list"></i></div>
+        <p>All</p>
+    </div>
+>>>>>>> 9a3c9a17882b67212c51fcc65b37fac87f7a4b2d
     <div class="tax-toggle">
         <div class="form-check-reverse form-switch">
         <input class="form-check-input" type="checkbox" role="switch" id="switchCheckDefault">
@@ -121,5 +128,36 @@
   <% } else { %>
   <p>No listings found with that title.</p>
   <% } %>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const filters = document.querySelectorAll('.filter');
+    const currentCategory = '<%= selectedCategory || "" %>';
+    
+    // Highlight active filter
+    filters.forEach(filter => {
+        const category = filter.dataset.category;
+        if (category === currentCategory) {
+            filter.style.opacity = '1';
+            filter.style.backgroundColor = '#f15f1b';
+            filter.style.borderRadius = '0.5rem';
+            filter.style.padding = '0.5rem';
+        }
+        
+        filter.addEventListener('click', () => {
+            const category = filter.dataset.category;
+            const currentUrl = new URL(window.location);
+            
+            if (category) {
+                currentUrl.searchParams.set('category', category);
+            } else {
+                currentUrl.searchParams.delete('category');
+            }
+            
+            window.location.href = currentUrl.toString();
+        });
+    });
+});
+</script>
 
 </body>
