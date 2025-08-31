@@ -6,10 +6,28 @@ body {
     min-height: 100vh;
     background-color: #232323 !important; /* dark background */
     color: #cebea3 !important; /* light beige text */
+    overflow-x: hidden; /* Prevent horizontal scroll */
 }
 
 .container {
     flex: 1;
+    padding: 0 1rem;
+}
+
+/* --- Responsive Grid --- */
+@media (max-width: 576px) {
+    .container {
+        padding: 0 0.5rem;
+    }
+    
+    .row {
+        margin: 0;
+    }
+    
+    .col-8.offset-2 {
+        width: 100% !important;
+        margin-left: 0 !important;
+    }
 }
 
 /* --- Navbar --- */
@@ -17,6 +35,33 @@ body {
     height: 5rem;
     background-color: #232323;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2) !important; /* soft shadow */
+    padding: 0.5rem 1rem;
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        height: auto;
+        padding: 0.5rem;
+    }
+    
+    .navbar-brand img {
+        height: 80px !important;
+        transform: scale(1) !important;
+        margin-top: 5px !important;
+    }
+    
+    .navbar-nav.start .nav-link {
+        margin: 0.2rem 0;
+    }
+    
+    .navbar-nav.end .nav-link {
+        margin: 0.2rem 0;
+    }
+    
+    .d-flex[role="search"] {
+        width: 100%;
+        margin: 0.5rem 0;
+    }
 }
 
 .fa-compass {
@@ -85,6 +130,28 @@ body {
     background-color: #232323 !important;
     border-radius: 1rem !important;
     color: #cebea3 !important;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.listing-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+@media (max-width: 768px) {
+    .listing-card {
+        margin-bottom: 1rem;
+    }
+    
+    .card-img-top {
+        height: 15rem !important;
+    }
+}
+
+@media (max-width: 576px) {
+    .card-img-top {
+        height: 12rem !important;
+    }
 }
 
 .card-img-top {
@@ -157,6 +224,30 @@ body {
     .show-img {
         height: 30vh;
     }
+    
+    .col-lg-8 {
+        width: 100% !important;
+        padding: 0 1rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .show-img {
+        height: 25vh;
+    }
+    
+    .card-body {
+        padding: 0.75rem !important;
+    }
+    
+    .d-flex.gap-2 {
+        flex-direction: column;
+        gap: 0.5rem !important;
+    }
+    
+    .d-flex.gap-2 .btn {
+        width: 100%;
+    }
 }
 
 .show-card {
@@ -180,15 +271,20 @@ body {
 /* Media queries to make the map responsive */
 #map {
     height: 400px; /* Fixed height for larger screens */
-    width: 80vh; /* Using vh for width can be inconsistent, consider using % */
+    width: 100%; /* Make map responsive */
     border: 2px solid #b4a777;
     border-radius: 8px;
 }
 
 @media (max-width: 992px) {
     #map {
-        width: 100%; /* Make map full width on smaller screens */
         height: 300px; /* Make it a bit shorter */
+    }
+}
+
+@media (max-width: 576px) {
+    #map {
+        height: 250px;
     }
 }
 
@@ -199,6 +295,46 @@ body {
     font-weight: 500;
     font-size: 0.95rem;
     border: none !important;
+}
+
+@media (max-width: 768px) {
+    .tax-toggle {
+        margin-top: 1rem;
+        margin-left: 0 !important;
+        width: 100%;
+        justify-content: center;
+    }
+    
+    #filters {
+        justify-content: center !important;
+        padding: 0 1rem;
+    }
+    
+    .filter {
+        margin: 0.5rem !important;
+        min-width: 80px;
+        text-align: center;
+    }
+}
+
+@media (max-width: 576px) {
+    #filters {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .filter {
+        margin: 0.3rem !important;
+        padding: 0.5rem;
+        border-radius: 0.5rem;
+        background-color: rgba(255, 255, 255, 0.05);
+        min-width: 100px;
+    }
+    
+    .tax-toggle {
+        margin-top: 1rem;
+        width: 90%;
+    }
 }
 
 /* Label */
@@ -217,4 +353,60 @@ body {
 .tax-toggle .form-check-input:checked {
     background-color: #cebea3 !important; /* orange when active */
     border-color: #cebea3 !important;
+}
+
+/* --- Form Responsiveness --- */
+@media (max-width: 768px) {
+    .form-control,
+    .form-select {
+        font-size: 1rem;
+        padding: 0.75rem;
+    }
+    
+    .btn {
+        padding: 0.75rem 1.5rem;
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .row .col-md-4,
+    .row .col-md-8 {
+        width: 100% !important;
+        margin-bottom: 1rem;
+    }
+    
+    .review-card.col-md-5 {
+        width: 100% !important;
+        margin: 0.5rem 0 !important;
+    }
+}
+
+/* --- Responsive Typography --- */
+@media (max-width: 768px) {
+    h3 {
+        font-size: 1.5rem;
+    }
+    
+    h4 {
+        font-size: 1.25rem;
+    }
+    
+    .card-bold {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 576px) {
+    h3 {
+        font-size: 1.25rem;
+    }
+    
+    h4 {
+        font-size: 1.1rem;
+    }
+    
+    .card-text {
+        font-size: 0.9rem;
+    }
 }

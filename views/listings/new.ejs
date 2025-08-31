@@ -53,6 +53,23 @@
                         <div class="invalid-feedback">Please enter a location.</div>
                     </div>
 
+                    <div class="mb-3">
+                        <label for="category" class="form-label"> Category </label>
+                        <select name="listing[category]" id="category" class="form-control" required>
+                            <option value="">Select a category</option>
+                            <option value="rooms">Rooms</option>
+                            <option value="mountains">Mountains</option>
+                            <option value="iconic-cities">Iconic Cities</option>
+                            <option value="beaches">Beaches</option>
+                            <option value="pools">Pools</option>
+                            <option value="camping">Camping</option>
+                            <option value="lakefront">Lakefront</option>
+                            <option value="farms">Farms</option>
+                            <option value="treehouse">Tree House</option>
+                        </select>
+                        <div class="invalid-feedback">Please select a category.</div>
+                    </div>
+
                     <button class="btn btn-dark edit-btn mt-3" type="submit">Add</button>
                     <br><br>
                 </form>

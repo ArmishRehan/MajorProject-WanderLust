@@ -12,6 +12,11 @@ const listingSchema = new Schema({
     country: { type: String, required: true },
     location: { type: String, required: true },
     price: { type: Number, required: true },
+    category: { 
+        type: String, 
+        required: true,
+        enum: ['rooms', 'mountains', 'iconic-cities', 'beaches', 'pools', 'camping', 'lakefront', 'farms', 'treehouse']
+    },
     reviews: [{ type: Schema.Types.ObjectId, ref: "Review" }],
     owner: {type: Schema.Types.ObjectId, ref: "User"},
     coordinates: {
