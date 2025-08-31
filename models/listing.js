@@ -15,7 +15,7 @@ const listingSchema = new Schema({
     category: { 
         type: String, 
         required: true,
-        enum: ['rooms', 'mountains', 'iconic-cities', 'beaches', 'pools', 'camping', 'lakefront', 'farms', 'treehouse']
+        enum: ['rooms', 'mountains', 'iconic-cities', 'beaches', 'pools', 'camping', 'lakefront', 'farms', 'treehouse', 'others']
     },
     reviews: [{ type: Schema.Types.ObjectId, ref: "Review" }],
     owner: {type: Schema.Types.ObjectId, ref: "User"},
